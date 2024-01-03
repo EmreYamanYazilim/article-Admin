@@ -24,7 +24,7 @@ class CategoryFactory extends Factory
             "status"          => fake()->boolean,
             "feature_status"  => fake()->boolean,
             "description"     => fake()->paragraph,
-//            "parent_id"     => random_int(1,22),   alt kategori oluşturmak için  ilk başta  yorum satırına alıyorum
+            "parent_id"     => random_int(1,22),   //alt kategori oluşturmak için  ilk başta  yorum satırına alıyorum
             "order"           => random_int(1,1111),
             "seo_keywords"    => Str::slug(fake()->address, ", "), // adres verip arasını virgülle ayırıp boşluk bıraktırdım keyword girmişiz gibi olsun
             "seo_description" => fake()->text,

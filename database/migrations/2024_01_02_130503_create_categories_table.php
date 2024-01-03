@@ -26,12 +26,13 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign("parent_id")
-                ->references("id")
                 ->on("categories")
+                ->references("id")
                 ->onDelete("cascade");
             $table->foreign("user_id")
-                ->references("id")
-                ->on("users");
+                ->on("users")
+                ->references("id");
+
         });
     }
 
