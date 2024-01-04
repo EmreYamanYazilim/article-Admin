@@ -24,7 +24,6 @@
                 :class="'table-striped table-hover'"
                 :is-responsive="1">
                 <x-slot:columns>
-                    <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Slug</th>
                     <th scope="col">Status</th>
@@ -36,28 +35,123 @@
                     <th scope="col">Actions</th>
                 </x-slot:columns>
                 <x-slot:rows>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Marasdasdk</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                    </tr>
+                    @foreach($list as $category)
+                        <tr>
+                            <td scope="row">{{ $category->name }}</td>
+                            <td>{{ $category->slug }}</td>
+                            <td>
+                                @if($category->status)
+                                    <a href="javascript:void(0)" data-id="{{ $category->id }}" class="btn btn-success btn-sm btnChangeStatus">Aktif</a>
+                                @else
+                                    <a href="javascript:void(0)" data-id="{{ $category->id }}" class="btn btn-warning btn-sm btnChangeStatus">Pasif</a>
+                                @endif
+                            </td>
+                            <td>
+                                @if($category->feature_status)
+                                    <a href="javascript:void(0)" data-id="{{ $category->id }}" class="btn btn-success btn-sm btnChangeFeatureStatus">Aktif</a>
+                                @else
+                                    <a href="javascript:void(0)" data-id="{{ $category->id }}" class="btn btn-warning btn-sm btnChangeFeatureStatus">Pasif</a>
+                                @endif
+                            </td>
+                            <td>{{ substr($category->description, 0, 20) }}</td>
+                            <td>{{ $category->order }}</td>
+                            <td>{{ $category->parentCategory?->name }}</td> <!-- parent category varsa bas yoksa basma baskernen name'i göster  -->
+                            <td>{{ $category->user->name }}</td><!-- kategorinin useri varsa onun name'sini bassin Hasone ile bağladım -->
+                            <td>
+                                <a href="" class="btn btn-warning btn-sm"><i class="material-icons ms-0">edit</i></a>
+                                <a href="" class="btn btn-danger btn-sm"><i class="material-icons ms-0">delete</i></a>
+                            </td>
+                        </tr>
+                    @endforeach
                 </x-slot:rows>
             </x-bootstrap.table:>
         </x-slot:body>
     </x-bootstrap.card>
+
+    <form action="" method="POST" id="statusChangeForm">
+        @csrf
+        <input type="hidden" name="id" id="inputStatus" value="">
+    </form>
 @endsection
 
 @section("js")
+    <script>
+
+        $(document).ready(function () {
+            $('.btnChangeStatus').click(function () {
+                let categoryID = $(this).data('id');
+                $('#inputStatus').val(categoryID);
+
+
+                Swal.fire({
+                    title: "Status değiştirmek istediğinize emin misiniz ?",
+                    showDenyButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: "Evet",
+                    denyButtonText: `Hayır`,
+                    cancelButtonText: "iptal",
+
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        $('#statusChangeForm').attr("action", "{{ route('categories.changeStatus') }}");
+                        $('#statusChangeForm').submit();
+
+                    } else if (result.isDenied) {
+                        Swal.fire("Herhangi bir işlem yapılmadı ", "", "info");
+                    }
+                });
+            });
+
+            $('.btnChangeFeatureStatus').click(function () {
+                let categoryID = $(this).data('id');
+                $('#inputStatus').val(categoryID);
+
+                Swal.fire({
+                    title: "Feature Statusu değiştirmek istediğinizden emin misiniz ? ",
+                    showDenyButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: "Evet",
+                    denyButtonText: `Hayır`,
+                    cancelButtonText:'İptal'
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        $('#statusChangeForm').attr("action", "{{ route("categories.feature.changeStatus") }}");
+                        $('#statusChangeForm').submit();
+
+                    } else if (result.isDenied) {
+                        Swal.fire("Herhangi bir işlem yapılmadı", "", "info");
+                    }
+                });
+
+
+
+
+
+
+
+            });
+        });
+
+
+
+
+
+
+
+
+        {{--$(document).ready(function ()--}}
+        {{--{--}}
+        {{--    $('.btnChangeStatus').click(function () {--}}
+        {{--        let categoryID = $(this).data('id');--}}
+
+        {{--        $('#statusChange').attr("action", "{{ route("categories.changeStatus") }}")--}}
+        {{--    });--}}
+        {{--});--}}
+
+
+
+    </script>
+
 @endsection
