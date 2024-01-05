@@ -31,7 +31,7 @@ class CategoryController extends Controller
         $category->status = !$category->status; // 1 se 0  yap  0 sa 1 yap analamına geliyor
         $category->save();
 
-        alert()->success("Değiştirme işlemi başarılı");
+        alert()->success("Değiştirme işlemi başarılı")->autoClose(5000);
         return redirect()->route("category.index");
 
 
@@ -39,20 +39,26 @@ class CategoryController extends Controller
 
     public function chanceFeatureStatus(Request $request)
     {
-
         $request->validate(['id'=>'required', 'integer']);
+
         $categoryID = $request->id;
         $category = Category::where('id', $categoryID)->first();
         $category->feature_status = !$category->feature_status;
         $category->save();
 
-        alert()->success('Değiştirme işlemi başarılı !');
-        return redirect()->route('category.index');
-
+        alert()->success('Değiştirme işlemi başarılı')->autoClose(5000);
+        return redirect()->route("category.index");
 
     }
 
 
-
+    public function delete(Request $request)
+    {
+        $request->validate(['id'=>'required', 'integer']);
+        $categoryID = $request->id;
+        Category::where('id', $categoryID)->delete();
+        alert()->success('Başarı ile silindir !');
+        return redirect()->route("category.index");
+    }
 
 }

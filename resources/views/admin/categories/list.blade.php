@@ -59,7 +59,11 @@
                             <td>{{ $category->user->name }}</td><!-- kategorinin useri varsa onun name'sini bassin Hasone ile bağladım -->
                             <td>
                                 <a href="" class="btn btn-warning btn-sm"><i class="material-icons ms-0">edit</i></a>
-                                <a href="" class="btn btn-danger btn-sm"><i class="material-icons ms-0">delete</i></a>
+                                <a href="javascript:void(0)" class="btn btn-danger btn-sm btnDelete"
+                                   data-name="{{ $category->name }}"
+                                   data-id="{{ $category->id }}">
+                                    <i class="material-icons ms-0">delete</i>
+                                </a>
                             </td>
                         </tr>
                     @endforeach
@@ -67,7 +71,6 @@
             </x-bootstrap.table:>
         </x-slot:body>
     </x-bootstrap.card>
-
     <form action="" method="POST" id="statusChangeForm">
         @csrf
         <input type="hidden" name="id" id="inputStatus" value="">
@@ -76,6 +79,7 @@
 
 @section("js")
     <script>
+
 
         $(document).ready(function () {
             $('.btnChangeStatus').click(function () {
@@ -103,54 +107,50 @@
                 });
             });
 
+            // başka sweetalert koydum
             $('.btnChangeFeatureStatus').click(function () {
                 let categoryID = $(this).data('id');
                 $('#inputStatus').val(categoryID);
 
                 Swal.fire({
-                    title: "Feature Statusu değiştirmek istediğinizden emin misiniz ? ",
-                    showDenyButton: true,
+                    title: "Bilgi !",
+                    text: "Feature Statusu değşitirmek istediğinden emin misin ?",
+                    icon: "warning",
                     showCancelButton: true,
-                    confirmButtonText: "Evet",
-                    denyButtonText: `Hayır`,
-                    cancelButtonText:'İptal'
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "evet!",
+                    cancelButtonText: "İptal"
                 }).then((result) => {
-                    /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
-                        $('#statusChangeForm').attr("action", "{{ route("categories.feature.changeStatus") }}");
-                        $('#statusChangeForm').submit();
+                        $("#statusChangeForm").attr("action", "{{ route("categories.feature.changeStatus") }}");
+                        $("#statusChangeForm").submit();
 
-                    } else if (result.isDenied) {
-                        Swal.fire("Herhangi bir işlem yapılmadı", "", "info");
                     }
                 });
+            });
 
+            // delete işlemi
+            $('.btnDelete').click(function () {
+                let categoryID = $(this).data('id');
+                let categoryName = $(this).data('name');
+                $('#inputStatus').val(categoryID);
 
-
-
-
-
-
+                Swal.fire({
+                    title: categoryName + " -> Silmek istediğinizden Emin misiniz ?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Evet"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $("#statusChangeForm").attr('action','{{ route('category.delete') }}');
+                        $("#statusChangeForm").submit();
+                    }
+                });
             });
         });
-
-
-
-
-
-
-
-
-        {{--$(document).ready(function ()--}}
-        {{--{--}}
-        {{--    $('.btnChangeStatus').click(function () {--}}
-        {{--        let categoryID = $(this).data('id');--}}
-
-        {{--        $('#statusChange').attr("action", "{{ route("categories.changeStatus") }}")--}}
-        {{--    });--}}
-        {{--});--}}
-
-
 
     </script>
 

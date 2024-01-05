@@ -26,3 +26,4 @@ Route::get("categories", [CategoryController::class, "index"])->name("category.i
 Route::get("categories/create", [CategoryController::class, "create"])->name("category.create");
 Route::post("categories/change-status", [CategoryController::class, "chanceStatus"])->name("categories.changeStatus");
 Route::post("categories/change-Status", [CategoryController::class, "chanceFeatureStatus"])->name("categories.feature.changeStatus");
+Route::post("categories/delete", [CategoryController::class, "delete"])->name("category.delete");
