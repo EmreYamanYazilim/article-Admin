@@ -58,7 +58,7 @@
                             <td>{{ $category->parentCategory?->name }}</td> <!-- parent category varsa bas yoksa basma baskernen name'i göster  -->
                             <td>{{ $category->user->name }}</td><!-- kategorinin useri varsa onun name'sini bassin Hasone ile bağladım -->
                             <td>
-                                <a href="" class="btn btn-warning btn-sm"><i class="material-icons ms-0">edit</i></a>
+                                <a href="{{ route("category.edit", ["id" => $category->id]) }}" class="btn btn-warning btn-sm"><i class="material-icons ms-0">edit</i></a>
                                 <a href="javascript:void(0)" class="btn btn-danger btn-sm btnDelete"
                                    data-name="{{ $category->name }}"
                                    data-id="{{ $category->id }}">
@@ -80,7 +80,7 @@
 @section("js")
     <script>
 
-
+// status bölümü
         $(document).ready(function () {
             $('.btnChangeStatus').click(function () {
                 let categoryID = $(this).data('id');
@@ -107,7 +107,7 @@
                 });
             });
 
-            // başka sweetalert koydum
+            // FetureStatus bölümü      başka sweetalert koydum
             $('.btnChangeFeatureStatus').click(function () {
                 let categoryID = $(this).data('id');
                 $('#inputStatus').val(categoryID);
@@ -150,6 +150,10 @@
                     }
                 });
             });
+
+            // edit işlemleri
+
+
         });
 
     </script>

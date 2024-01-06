@@ -61,4 +61,19 @@ class CategoryController extends Controller
         return redirect()->route("category.index");
     }
 
+    // Edit bölümü validate  yolladığımızda  request->all çekersek   boş döndürüyor    ama request->id çekersek bize değeri veriyor  o yüzden  validateyi başka şekilde yapacağım
+    public function edit(Request $request)
+    {
+        $categoryID = $request->id;
+        $category = Category::where("id", $categoryID)->first();
+        if (is_null($category)) {
+            alert()
+                ->warning("içerik Bulunamadı !")
+                ->showConfirmButton("tamam", "info")
+                ->autoClose(5000);
+            return redirect()->route('category.index');
+        }
+        return view("admin.categories.create-update", compact("category"));
+    }
+
 }

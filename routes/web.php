@@ -27,3 +27,4 @@ Route::get("categories/create", [CategoryController::class, "create"])->name("ca
 Route::post("categories/change-status", [CategoryController::class, "chanceStatus"])->name("categories.changeStatus");
 Route::post("categories/change-Status", [CategoryController::class, "chanceFeatureStatus"])->name("categories.feature.changeStatus");
 Route::post("categories/delete", [CategoryController::class, "delete"])->name("category.delete");
+Route::get("categories/{id}/edit", [CategoryController::class, "edit"])->name("category.edit")->whereNumber("id"); // url'de sadece rakkamları görsün
