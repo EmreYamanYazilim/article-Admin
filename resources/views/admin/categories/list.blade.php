@@ -68,7 +68,9 @@
                         </tr>
                     @endforeach
                 </x-slot:rows>
-            </x-bootstrap.table:>
+                </x-bootstrap.table:>
+            {{ $list->links("pagination::bootstrap-5") }}
+
         </x-slot:body>
     </x-bootstrap.card>
     <form action="" method="POST" id="statusChangeForm">
