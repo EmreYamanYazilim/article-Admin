@@ -67,13 +67,16 @@
                         <a class="nav-link toggle-search" href="#"><i class="material-icons">search</i></a>
                     </li>
                     <li class="nav-item hidden-on-mobile">
-                        <a class="nav-link language-dropdown-toggle" href="#" id="languageDropDown" data-bs-toggle="dropdown"><img src="../assets/images/flags/us.png" alt=""></a>
+                        <a class="nav-link language-dropdown-toggle" href="#" id="languageDropDown" data-bs-toggle="dropdown">{{ auth()->user()->name }}</a>
                         <ul class="dropdown-menu dropdown-menu-end language-dropdown" aria-labelledby="languageDropDown">
-                            <li><a class="dropdown-item" href="#"><img src="../assets/images/flags/germany.png" alt="">German</a></li>
-                            <li><a class="dropdown-item" href="#"><img src="../assets/images/flags/italy.png" alt="">Italian</a></li>
-                            <li><a class="dropdown-item" href="#"><img src="../assets/images/flags/china.png" alt="">Chinese</a></li>
                         </ul>
                     </li>
+                    <li><a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Çıkış Yap</a>
+                        <form action="{{ route("logout") }}" method="POST" id="logout-form"><!-- href'i iptal ettirip onclik yaptığımızda submit etmesini istedik id verdik idyi post olan mettota form içinde logout yaptırdık mddlewarre ara katman ile bunu güvence altına aldık -->
+                            @csrf
+                        </form>
+                    </li>
+
                     <li class="nav-item hidden-on-mobile">
                         <a class="nav-link nav-notifications-toggle" id="notificationsDropDown" href="#" data-bs-toggle="dropdown">4</a>
                         <div class="dropdown-menu dropdown-menu-end notifications-dropdown" aria-labelledby="notificationsDropDown">

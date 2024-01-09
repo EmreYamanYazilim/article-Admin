@@ -18,10 +18,10 @@
                 beautiful.</p>
             <div class="example-container">
                 <div class="example-content">
-                    @if($errors->any()) <!-- Herhangi bir hata varsa  getir demek-->
-                        @foreach($errors->all() as $error) <!-- hataların hepsini getir ve o hataları error değişkenine verdik -->
+                    @if($errors->any())
+                        @foreach($errors->all() as $error)
                             <div class="alert alert-danger">
-                                {{ $error }} <!-- div içine  direk yazdırdık -->
+                                {{ $error }}
                             </div>
                         @endforeach
                     @endif
