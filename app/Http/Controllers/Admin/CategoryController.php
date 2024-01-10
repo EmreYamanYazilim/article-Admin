@@ -5,16 +5,44 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryStoreRequest;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::with("parentCategory:id,name")->orderBy("order", "desc")->paginate(10);
+        $parentCategories = Category::all();
+        $users = User::all();
 
-        return view("admin.categories.list", ['list' => $categories]);
+        $parentID = $request->parent_id;
+        $userID = $request->user_id;
+
+        $categories = Category::with("parentCategory:id,name")
+            //scope'siz yöntem -> parent_id'lerimiz içinde  üst kategori olarak  null olduğu için bu bölümü  scopesiz  yapmak daha makul
+            ->where(function ($query) use ($parentID, $userID) {
+                if (!is_null($parentID)) {
+                    $query->where("parent_id", $parentID);
+                }
+                if (!is_null($userID)) {
+                    $query->where("user_id", $userID);
+                }
+            })
+            // scope'li yöntemler altta model içine bağlandı
+            ->name($request->name)
+            ->slug($request->slug)
+            ->description($request->description)
+            ->order($request->order)
+            ->status($request->status)
+            ->featureStatus($request->feature_status)
+            ->orderBy("order", "desc")
+            ->paginate(10);
+
+        return view("admin.categories.list", [
+            'list' => $categories,
+            'users' => $users,
+            'parentCategories' => $parentCategories]);
     }
 
     public function create()
@@ -124,7 +152,7 @@ class CategoryController extends Controller
         if ((!is_null($slugcheck) && $slugcheck->id) || is_null($slugcheck)) {
             $category->slug = $slug;
         } elseif (is_null($slugcheck)) {
-            $category->slug = Str::slug($slug.time());
+            $category->slug = Str::slug($slug . time());
         }
         $category->description = $request->description;
         $category->parent_id = $request->parent_id;
