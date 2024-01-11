@@ -1,7 +1,7 @@
 @extends("layouts.admin")
 
 @section("title")
-    Makale  {{ isset($category) ? "Güncelleme" : "Ekleme" }}
+    Kategori  {{ isset($category) ? "Güncelleme" : "Ekleme" }}
 @endsection
 
 @section("css")
@@ -11,7 +11,7 @@
 
     <x-bootstrap.card>
         <x-slot:header>
-            <h2 class="card-title">Makale {{ isset($category) ? "Güncelleme" : "Ekleme" }}</h2>
+            <h2 class="card-title">Kategori {{ isset($category) ? "Güncelleme" : "Ekleme" }}</h2>
         </x-slot:header>
         <x-slot:body>
             <p class="card-description">We offer some different custom styles for input fields to make your forms more

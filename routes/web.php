@@ -24,6 +24,7 @@ Route::prefix("admin")->middleware(["language","auth"])->group(function () {
 
     Route::get("articles", [ArticleController::class, "index"])->name("article.index");
     Route::get("articles/create",[ArticleController::class, "create"])->name("article.create");
+    Route::post("articles/create", [ArticleController::class, "store"]);
 
     Route::get("categories", [CategoryController::class, "index"])->name("category.index");
     Route::get("categories/create", [CategoryController::class, "create"])->name("category.create");
@@ -38,9 +39,9 @@ Route::prefix("admin")->middleware(["language","auth"])->group(function () {
 
 });
 
-//Route::get('/', function () { // frontend için bıraktım
-//    return view('admin.index');
-//})->name("home");
+Route::get('/', function () { // frontend için bıraktım
+    return view('admin.index');
+})->name("home");
 
 // login işlemleri
 Route::get("/login", [LoginController::class, "showLogin"])->name("login");
