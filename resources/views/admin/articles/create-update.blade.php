@@ -1,7 +1,7 @@
 @extends("layouts.admin")
 
 @section("title")
-    Makale ekleme ve güncelleme
+    Makale {{ isset($article) ? "Güncelleme" : "Ekleme" }}
 @endsection
 
 @section("css")
@@ -15,6 +15,7 @@
     <x-bootstrap.card>
         <x-slot:header>
             <h2 class="card-title">Makale {{ isset($article) ? "Güncelleme" : "Ekleme" }}</h2>
+            <hr>
         </x-slot:header>
         <x-slot:body>
             <div class="example-container">
@@ -65,7 +66,7 @@
                                 name="category_id" >
                             <option  value="{{ null }}">Kategori Seçimi</option>
                             @foreach($categories as $item)
-                                <option  value="{{ $item->id }}" {{ isset($article) && $article->id == $item->id ? "selected" : "" }}>
+                                <option  value="{{ $item->id }}" {{ isset($article) && $article->category_id == $item->id ? "selected" : "" }}>
                                     {{ $item->name }}
                                 </option>
                             @endforeach
@@ -73,7 +74,7 @@
                         <hr>
                         <label for="description">Makale İçeriği</label>
 
-                        <textarea id="summernote" name="body" class="m-b-sm">Güzel düşünelerinizi bizimle paylaşın</textarea>
+                        <textarea id="summernote" name="body" class="m-b-sm">{{ isset($article) ? $article->body : "" }}</textarea>
 
                         <textarea class="form-control form-control-solid-bordered m-b-sm"
                                   name="seo_description" id="seo_description"
@@ -92,6 +93,7 @@
                                id="publish_date"
                                name="publish_date"
                                type="text"
+                               value="{{ isset($article) ? $article->publish_date : ""  }}"
                                placeholder="Ne Zaman Yayınlansın ?">
                         <input type="file" name="image" id="image" class="form-control m-b-sm" accept="image/png, image/jpeg, image/jpg">
                         <div class="form-text m-b-sm">Makale Görseli</div>
@@ -100,7 +102,7 @@
                         @endif
 
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="status" id="status" {{ isset($aritcle) && $article->status ? "checked" : "" }}
+                            <input class="form-check-input" type="checkbox" name="status" id="status" value="1" {{ isset($aritcle) && $article->status ? "checked" : "" }}
                             <label class="form-check-label" for="status">
                                 Makale Sitede Görünsün mü ?
                             </label>

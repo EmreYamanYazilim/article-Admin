@@ -8,7 +8,7 @@
 @endsection
 
 @section("content")
-    Makale Listeleme
+
 @endsection
 
 @section("js")
