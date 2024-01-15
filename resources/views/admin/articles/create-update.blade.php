@@ -122,6 +122,7 @@
 
 @section("js")
     <script src="{{ asset("assets/plugins/flatpickr/flatpickr.js") }}"></script>
+    <script src="{{ asset("assets/js/pages/datepickers.js") }}"></script>
     <script src="{{ asset("assets/plugins/summernote/summernote-lite.min.js") }}"></script>
     <script src="{{ asset("assets/js/pages/text-editor.js") }}"></script>
 {{--    <script src="{{ asset("assets/js/pages/datepickers.js") }}"></script>--}}

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticleCreateRequest;
+use App\Http\Requests\ArticleFilterRequest;
 use App\Http\Requests\ArticleUpdateRequest;
 use App\Models\Article;
 use App\Models\Category;
@@ -14,11 +15,26 @@ use Illuminate\Support\Str;
 
 class ArticleController extends Controller
 {
-    public function index()
+    public function index(ArticleFilterRequest $request)
     {
+        $categories = Category::all();
+        $users = User::all();
+        $list = Article::query()->with("category","user")
+            ->where(function ($query) use ($request) {
+                $query->orWhere("title", "LIKE", "%" . $request->title . "%")
+                    ->orWhere("slug", "LIKE", "%" . $request->slug . "%")
+                    ->orWhere("body", "LIKE", "%" . $request->body . "%")
+                    ->orWhere("tags", "LIKE", "%" . $request->tags . "%");
+            })
+            ->status($request->status)
+            ->category($request->category_id)
+            ->user($request->user_id)
+            ->publishDate($request->publish_date)
 
-        $articles = Article::all();
-        return view("admin.articles.list" ,compact("articles"));
+
+            ->paginate(1);
+
+        return view("admin.articles.list" ,compact("categories","users","list"));
     }
 
     public function create()
@@ -101,6 +117,8 @@ class ArticleController extends Controller
                 if (!empty($articleFind->image)) {
                     unlink($articleFind->image);
                 }
+                alert()->success("Başarı ile güncellendiz")->showConfirmButton("tamam")->autoClose(5000);
+                return redirect()->back();
             }
         }else{
             $data["user_id"] = auth()->id();
@@ -108,6 +126,8 @@ class ArticleController extends Controller
                 ->where("id", $request->id)
                  ->update($data);
         }
+        alert()->success("Başarı ile güncellendiz")->showConfirmButton("tamam")->autoClose(5000);
+        return redirect()->back();
     }
 
 
