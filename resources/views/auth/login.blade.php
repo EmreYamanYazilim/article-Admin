@@ -32,7 +32,7 @@
                 <div class="auth-credentials m-b-xxl">
                     <label for="signInEmail" class="form-label">Email address</label>
                     <input type="email" class="form-control m-b-md" id="signInEmail"
-                           aria-describedby="signInEmail" placeholder="example@neptune.com"
+                           aria-describedby="signInEmail" placeholder="Email Adresinizi Yazınız "
                            name="email"
                     value="{{ old("email") }}">
 

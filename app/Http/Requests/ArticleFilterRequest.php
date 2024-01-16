@@ -23,10 +23,10 @@ class ArticleFilterRequest extends FormRequest
     {
         return [
 
-            "min_view_count" => ["integer"],
-            "max_view_count" => ["integer"],
-            "min_like_count" => ["integer"],
-            "max_like_count" => ["integer"]
+            "min_view_count" => ["integer","nullable"],
+            "max_view_count" => ["integer","nullable"],
+            "min_like_count" => ["integer","nullable"],
+            "max_like_count" => ["integer","nullable"]
         ];
     }
 }

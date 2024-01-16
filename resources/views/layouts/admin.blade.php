@@ -8,6 +8,8 @@
     <meta name="description" content="Responsive Admin Dashboard Template">
     <meta name="keywords" content="admin,dashboard">
     <meta name="author" content="stacks">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- The above 6 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title -->
@@ -68,6 +70,16 @@
 <script src="{{ asset('assets/js/pages/select2.js') }}"></script>
 <script src="{{ asset('assets/admin/js/pages/dashboard.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    $(document).ready(function () {
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+            }
+        })
+    });
+</script>
 
 
 @include('sweetalert::alert')

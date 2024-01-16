@@ -23,8 +23,9 @@ body{
 
 
 .header-border{
-    border-bottom:1px solid #eceff2;
+    border-bottom: 2px solid darkgreen;
 }
+
 .header-h{
     min-height: 70px;
 }

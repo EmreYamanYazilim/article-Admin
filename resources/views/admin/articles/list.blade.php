@@ -28,7 +28,7 @@
                             <option value="{{ null }}">kategori seçin</option>
                             @foreach($categories as $parent)
                                 <option
-                                    value="{{ $parent->id }}" {{ request()->get("parent_id") == $parent->id ? "selected" : "" }}>{{ $parent->name }}</option>
+                                    value="{{ $parent->id }}" {{ request()->get("category_id") == $parent->id ? "selected" : "" }}>{{ $parent->name }}</option>
                             @endforeach
 
                         </select>
@@ -127,7 +127,7 @@
                 </x-slot:columns>
                 <x-slot:rows>
                     @foreach($list as $article)
-                        <tr>
+                        <tr id="row-{{ $article->id }}">
                             <td>
                                 @if(!empty($article->image))
                                     <img src="{{ asset($article->image) ?? "" }} " alt="" class="img-fluid"
@@ -138,9 +138,11 @@
                             <td>{{ $article->slug }}</td>
                             <td>
                                 @if($article->status)
-                                    <a href="javascript:void(0)" class="btn btn-warning btn-sm btnChangeStatus" data-id="{{ $article->id }}">Aktif</a>
+                                    <a href="javascript:void(0)" class="btn btn-success btn-sm btnChangeStatus"
+                                       data-id="{{ $article->id }}">Aktif</a>
                                 @else()
-                                    <a href="javascript:void(0)" class="btn btn-warning btn-sm btnChangeStatus" data-id="{{ $article->id }}">Pasif</a>
+                                    <a href="javascript:void(0)" class="btn btn-warning btn-sm btnChangeStatus"
+                                       data-id="{{ $article->id }}">Pasif</a>
                                 @endif
                             </td>
                             <td><span data-bs-container="body"
@@ -152,8 +154,8 @@
                             <td>{{ $article->tags }}</td>
                             <td>{{ $article->view_count }}</td>
                             <td>{{ $article->like_count }}</td>
-                            <td>{{ $article->publish_date }}</td>
-                            <td>{{ $article->category->name }}</td>
+                            <td>{{ \Carbon\Carbon::parse($article->publish_date)->translatedFormat("d F Y H:i:s") }}</td>
+                            <td>{{ $article->category->name}}</td>
                             <td>{{ $article->user->name }}</td>
                             <td>
                                 <a href="{{ route("article.edit",["id" => $article->id]) }}"
@@ -161,7 +163,7 @@
                                     <i class="material-icons ms-0">edit</i>
                                 </a>
                                 <a href="javascript:void(0)" class="btn btn-danger btn-sm btnDelete"
-                                   data-name="{{ $article->name }}"
+                                   data-name="{{ $article->title }}"
                                    data-id="{{ $article->id }}">
                                     <i class="material-icons ms-0">delete</i>
                                 </a>
@@ -177,10 +179,11 @@
 
         </x-slot:body>
     </x-bootstrap.card>
-    <form action="" method="POST" id="statusChangeForm">
-        @csrf
-        <input type="hidden" name="id" id="inputStatus" value="">
-    </form>
+    {{--    <form action="" method="POST" id="statusChangeForm">--}}
+    {{--        @csrf--}}
+    {{--        <input type="hidden" name="id" id="inputStatus" value="">--}}
+    {{--    </form>--}}
+
 @endsection
 
 @section("js")
@@ -195,9 +198,8 @@
         // status bölümü
         $(document).ready(function () {
             $('.btnChangeStatus').click(function () {
-                let categoryID = $(this).data('id');
-                $('#inputStatus').val(categoryID);
-
+                let articleID = $(this).data('id');
+                let self = $(this);
 
                 Swal.fire({
                     title: "Status değiştirmek istediğinize emin misiniz ?",
@@ -210,8 +212,36 @@
                 }).then((result) => {
                     /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
-                        $('#statusChangeForm').attr("action", "{{ route('categories.changeStatus') }}");
-                        $('#statusChangeForm').submit();
+                        $.ajax({
+                            method: "POST",
+                            url: "{{ route("article.chanceStatus") }}",
+                            data: {
+                                articleID: articleID
+                            },
+                            async: false,
+                            success: function (data) {
+                                if (data.article_status) {
+                                    self.removeClass("btn-warning");
+                                    self.addClass("btn-success");
+                                    self.text("Aktif");
+                                } else {
+
+                                    self.removeClass("btn-success");
+                                    self.addClass("btn-warning");
+                                    self.text("Pasif")
+                                }
+                                Swal.fire({
+                                    title: "Bilgi",
+                                    text: "Status işlemi Başarılı",
+                                    confirmButtonText: "Tamam",
+                                    icon: "info"
+                                });
+
+                            },
+                            error: function () {
+                                console.log("hata geldi");
+                            },
+                        });
 
                     } else if (result.isDenied) {
                         Swal.fire("Herhangi bir işlem yapılmadı ", "", "info");
@@ -219,37 +249,11 @@
                 });
             });
 
-            // FetureStatus bölümü      başka sweetalert koydum
-            $('.btnChangeFeatureStatus').click(function () {
-                let categoryID = $(this).data('id');
-                $('#inputStatus').val(categoryID);
-
-                Swal.fire({
-                    title: "Bilgi !",
-                    text: "Feature Statusu değşitirmek istediğinden emin misin ?",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "evet!",
-                    cancelButtonText: "İptal"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $("#statusChangeForm").attr("action", "{{ route("categories.feature.changeStatus") }}");
-                        $("#statusChangeForm").submit();
-
-                    }
-                });
-            });
-
             // delete işlemi
             $('.btnDelete').click(function () {
-                let categoryID = $(this).data('id');
-                let categoryName = $(this).data('name');
-                $('#inputStatus').val(categoryID);
-
+                let articleID = $(this).data('id');
                 Swal.fire({
-                    title: categoryName + " -> Silmek istediğinizden Emin misiniz ?",
+                    title: " Silmek istediğinizden Emin misiniz ?",
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#3085d6",
@@ -257,13 +261,37 @@
                     confirmButtonText: "Evet"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        $("#statusChangeForm").attr('action', '{{ route('category.delete') }}');
-                        $("#statusChangeForm").submit();
+                        $.ajax({
+                            method: "POST",
+                            url: "{{ route("article.delete") }}",
+                            data: {
+                                "_method": "DELETE",
+                                articleID: articleID
+                            },
+                            async: false,
+                            success: function (data) {
+                                $('#row-' + articleID).remove();
+                                Swal.fire({
+                                    title: "Bilgi !",
+                                    text: "Makale Silme işlemi Başarılı",
+                                    confirmButtonText: "Tamam",
+                                    icon: "info"
+                                });
+
+                            },
+                            error: function (data) {
+                                console.log("hata geldi")
+                            }
+
+                        });
+                    } else if (result.isDenied) {
+                        Swal.fire("Herhangi bir işlem yapılmadı ", "", "info");
                     }
+
+                    console.log(data);
+
                 });
             });
-
-            // edit işlemleri
 
 
         });

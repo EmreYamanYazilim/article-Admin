@@ -19,7 +19,7 @@ class ArticleController extends Controller
     {
         $categories = Category::all();
         $users = User::all();
-        $list = Article::query()->with("category","user")
+        $list = Article::query()->with("category", "user")
             ->where(function ($query) use ($request) {
                 $query->orWhere("title", "LIKE", "%" . $request->title . "%")
                     ->orWhere("slug", "LIKE", "%" . $request->slug . "%")
@@ -30,11 +30,23 @@ class ArticleController extends Controller
             ->category($request->category_id)
             ->user($request->user_id)
             ->publishDate($request->publish_date)
+            ->where(function ($query) use($request) {
+                if ($request->min_view_count) {
+                    $query->where("view_count", ">=",(int)$request->min_view_count);
+                }
+                if ($request->max_view_count) {
+                    $query->where("view_count", "<=", (int)$request->max_view_count);
+                }
+                if ($request->min_like_count) {
+                    $query->where("like_count", ">=", (int)$request->min_like_count);
+                }
+                if ($request->max_like_count) {
+                    $query->where("like_count", "<=", (int)$request->max_like_count);
+                }
+            })
+            ->paginate(5);
 
-
-            ->paginate(1);
-
-        return view("admin.articles.list" ,compact("categories","users","list"));
+        return view("admin.articles.list", compact("categories", "users", "list"));
     }
 
     public function create()
@@ -50,7 +62,7 @@ class ArticleController extends Controller
         $originalName = $imageFile->getClientOriginalName();
         $originalExtension = $imageFile->getClientOriginalExtension();
         $explodeName = explode(".", $originalName)[0];
-        $fileName = Str::slug($explodeName).time().".".$originalExtension;
+        $fileName = Str::slug($explodeName) . time() . "." . $originalExtension;
 
         if (file_exists(public_path("storage/articles/" . $fileName))) {
             return redirect()->back()->withErrors(["image" => "ayni görsel daha önce yüklendi"]);
@@ -65,15 +77,15 @@ class ArticleController extends Controller
             $checkTitleSlug = $this->slugCheck($slugTitle);
             if (!is_null($checkTitleSlug)) {
                 $slug = Str::slug($slug . time());
-            }else{
+            } else {
                 $slug = $slugTitle;
             }
         }
         $data["slug"] = $slug;
-        $data["image"] = "storage/articles/".$fileName;
+        $data["image"] = "storage/articles/" . $fileName;
         $data["user_id"] = auth()->id();
         Article::create($data);
-        $imageFile->storeAs("articles", $fileName,"public");
+        $imageFile->storeAs("articles", $fileName, "public");
 
 
         alert()->success("başarı ile kaydedildi")->showConfirmButton("tamam")->autoClose(5000);
@@ -82,12 +94,13 @@ class ArticleController extends Controller
 
     public function edit(Request $request, int $articleID)
     {
+
         $categories = Category::all();
         $users = User::all();
         $article = Article::query()
-            ->where("id",$articleID)
+            ->where("id", $articleID)
             ->firstOrFail();
-        return view("admin.articles.create-update", compact("article","users", "categories"));
+        return view("admin.articles.create-update", compact("article", "users", "categories"));
 
     }
 
@@ -99,7 +112,7 @@ class ArticleController extends Controller
             $originalName = $imageFile->getClientOriginalName();
             $originalExtension = $imageFile->getClientOriginalExtension();
             $explodeName = explode(".", $originalName)[0];
-            $fileName = Str::slug($explodeName).time().".".$originalExtension;
+            $fileName = Str::slug($explodeName) . time() . "." . $originalExtension;
         }
         $data = $request->except("_token");
         $slug = $data["slug"] ?? $data["title"];
@@ -107,7 +120,7 @@ class ArticleController extends Controller
         $data["slug"] = $slug;
         if (!is_null($request->image)) {
             $data["image"] = "storage/articles/" . $fileName;
-            $imageFile->move("storage/articles",$fileName);
+            $imageFile->move("storage/articles", $fileName);
             $data["user_id"] = auth()->id();
             $articleQuery = Article::query()
                 ->where("id", $request->id);
@@ -120,11 +133,11 @@ class ArticleController extends Controller
                 alert()->success("Başarı ile güncellendiz")->showConfirmButton("tamam")->autoClose(5000);
                 return redirect()->back();
             }
-        }else{
+        } else {
             $data["user_id"] = auth()->id();
-             Article::query()
+            Article::query()
                 ->where("id", $request->id)
-                 ->update($data);
+                ->update($data);
         }
         alert()->success("Başarı ile güncellendiz")->showConfirmButton("tamam")->autoClose(5000);
         return redirect()->back();
@@ -134,5 +147,51 @@ class ArticleController extends Controller
     public function slugCheck(string $text)
     {
         return Article::where("slug", $text)->first();
+    }
+
+
+    public function chanceStatus(Request $request)
+    {
+
+        $articleID = $request->articleID;
+
+        $article = Article::query()->where("id", $articleID)->first();
+
+        if ($article) {
+            $article->status = $article->status ? 0 : 1;
+            $article->save();
+            return response()
+                ->json(["status" => "success",
+                    "message" => "Makale Status işlemi Başarılı",
+                    "data" => $article,
+                    "article_status" => $article->status])
+                ->setStatusCode(200);
+        }
+        return response()
+            ->json([
+                "status" => "success",
+                "message" => "Makale Bulunamadı !",
+            ])
+            ->setStatusCode(404);
+    }
+
+    public function delete(Request $request)
+    {
+        $articleID = $request->articleID;
+        $article = Article::query()->where("id", $articleID)->first();
+
+        if ($article) {
+            $article->delete();
+            return response()->json([
+                "status" => "success",
+                "message" => "Silme işlemi Başarılı"
+            ])->setStatusCode("200");
+        }
+        return response()->json([
+            "status" => "error",
+            "message" => "Makale Bulunamadı"
+        ])->setStatusCode("404");
+
+
     }
 }
