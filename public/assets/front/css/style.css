@@ -78,6 +78,10 @@ body{
     color: #9ea1a2;
     text-decoration: none;
 }
+.swiper {
+    width: 100%;
+    height: 200px;
+}
 
 .swiper-most-popular, .swiper-youtube, .swiper-authors, .swiper-suggest-article {
     width: 100%;
