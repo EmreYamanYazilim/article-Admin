@@ -46,7 +46,7 @@ $(document).ready(function () {
         // pagination: {
         //     el: '.swiper-pagination',
         //     type:'bullets',
-        //     clikeable: true
+        //     clikeable: true,
         // },
 
         // Navigation arrows
@@ -62,6 +62,7 @@ $(document).ready(function () {
         speed: 1000,
         spaceBetween: 100,
         slidesPerView: 3,
+
     });
 
     // const swiper = new Swiper('.swiper-most-popular', {
