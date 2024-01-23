@@ -7,21 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Emre Yaman yazilim front sıfırdan </title>
     <link rel="stylesheet" href="../../../public/assets/front/css/bootstrap.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
-
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="../../../public/assets/front/material-icons/iconfont/material-icons.css">
     <link rel="stylesheet" href="../../../public/assets/front/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="../../../public/assets/front/aos/aos.css">
     <link rel="stylesheet" href="../../../public/assets/front/css/style.css">
+
+
 </head>
 <body>
 <header class="bg-white shadow-sm">
@@ -36,10 +35,10 @@
                     oluşturma </p>
             </div>
             <div class="header-search align-items-center">
-                <span class="material-symbols-outlined" id="searchIcon1">search</span>
+                <span class="material-icons" id="searchIcon1">search</span>
                 <form action="" class="position-relative" style="display: none" id="searchForm">
                     <input type="text" name="search_text" id="serach_text" placeholder="Arama">
-                    <span class="material-symbols-outlined position-absolute" id="searchIcon2"
+                    <span class="material-icons position-absolute" id="searchIcon2"
                           style="right: 0;top: 0;bottom: 0;">search</span>
 
                 </form>
@@ -85,9 +84,12 @@
     </div>
 </header>
 <div class="container">
-    <section class="container mt-4">
+    <section class="feature-categories mt-4">
         <div class="row">
-            <div class="col-md-3 p-3  ">
+            <div class="col-md-3 p-3 "
+                 data-aos="fade-down-right"
+                 data-aos-duration="1000"
+                 data-aos-easing="ease-in-out">
                 <div
                     style=" background: url('https://fakeimg.pl/600x400') no-repeat center center;
                         background-size: cover;
@@ -101,7 +103,10 @@
                 </div>
 
             </div>
-            <div class="col-md-3 p-3">
+            <div class="col-md-3 p-3"
+                 data-aos="fade-down-right"
+                 data-aos-duration="1000"
+                 data-aos-easing="ease-in-out">
                 <div
                     style=" background: url('https://fakeimg.pl/600x400') no-repeat center center;
                         background-size: cover;
@@ -115,7 +120,10 @@
                 </div>
 
             </div>
-            <div class="col-md-3 p-3">
+            <div class="col-md-3 p-3"
+                 data-aos="fade-down-left"
+                 data-aos-duration="1000"
+                 data-aos-easing="ease-in-out">
                 <div
                     style=" background: url('https://fakeimg.pl/600x400') no-repeat center center;
                         background-size: cover;
@@ -129,7 +137,10 @@
                 </div>
 
             </div>
-            <div class="col-md-3 p-3">
+            <div class="col-md-3 p-3"
+                 data-aos="fade-down-left"
+                 data-aos-duration="1000"
+                 data-aos-easing="ease-in-out">
                 <div
                     style=" background: url('https://fakeimg.pl/600x400') no-repeat center center;
                         background-size: cover;
@@ -149,31 +160,96 @@
     <main class="mt-5">
         <div class="row">
             <div class="col-md-9">
-                <section class="most-popular row">
+                <section class="most-popular row"
+                         data-aos="zoom-in-up"
+                         data-aos-duration="1000"
+                         data-aos-easing="ease-in-out">
                     <div class="popular-title col-md-8">
                         <h2 class="font-montserrat fw-semibold">En çok okunan Makaleler</h2>
                     </div>
                     <div class=" col-4">
                         <div class="most-popular-swiper-navigation text-end">
-                            <span class="btn btn-secondary material-symbols-outlined most-popular-swiper-button-prev">arrow_back</span>
-                            <span class="btn btn-secondary material-symbols-outlined most-popular-swiper-button-next">arrow_forward </span>
+                            <span class="btn btn-secondary material-icons most-popular-swiper-button-prev">arrow_back</span>
+                            <span class="btn btn-secondary material-icons most-popular-swiper-button-next">arrow_forward </span>
                         </div>
                     </div>
-                    <div class="swiper">
+                    <div class="col-md-12">
+                        <div class="swiper-most-popular mt-3">
                         <!-- Additional required wrapper -->
                         <div class="swiper-wrapper mt-3">
                             <!-- Slides -->
+                            <div class="swiper-slide">
+                                <a href="#">
+                                    <img src="https://fakeimg.pl/600x400" class="img-fluid">
+                                </a>
+                                <div class="swiper-most-body mt-2">
+                                    <div class="most-popular-author d-flex justify-content-between">
+                                        <div>yazar <a href="#">Emre Yaman</a></div>
+                                        <div class="text-end">Kategori:<a href="">Css</a></div>
+                                    </div>
+                                    <div class="most-popular-title">
+                                        <h4 class="text-black">
+                                            <a href="#">zAçıklama açıklama</a>
+                                        </h4>
+                                    </div>
+                                    <div class="most-popular-date">
+                                        <span>19 ocak 2024</span>&#x25CF;<span>10 dk</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <a href="#">
+                                    <img src="https://fakeimg.pl/600x400" class="img-fluid">
+                                </a>
+                                <div class="swiper-most-body mt-2">
+                                    <div class="most-popular-author d-flex justify-content-between">
+                                        <div>yazar <a href="#">Emre Yaman</a></div>
+                                        <div class="text-end"><a href="">Css</a></div>
+                                    </div>
+                                    <div class="most-popular-title">
+                                        <h4 class="text-black">
+                                            <a href="#">Açıklama açıklama</a>
+                                        </h4>
+                                    </div>
+                                    <div class="most-popular-date">
+                                        <span>19 ocak 2024</span>&#x25CF;<span>10 dk</span>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="swiper-slide">
                                 <a href="#">
                                     <img src="https://fakeimg.pl/600x400" class="img-fluid">
                                 </a>
-                                <div class="swiper-most-popular mt-2">
-                                    <div class="most-popular-author">
-                                        Yapımcı yazar <a href="#">Emre Yaman yazilim</a>
+                                <div class="swiper-most-body mt-2">
+                                    <div class="most-popular-author d-flex justify-content-between">
+                                        <div>yazar <a href="#">Emre Yaman</a></div>
+                                        <div class="text-end"><a href="">Css</a></div>
                                     </div>
                                     <div class="most-popular-title">
-                                        <h4 class="text-black"><a href="#">Açıklama açıklama</a></h4>
+                                        <h4 class="text-black">
+                                            <a href="#">Açıklama açıklama</a>
+                                        </h4>
+                                    </div>
+                                    <div class="most-popular-date">
+                                        <span>19 ocak 2024</span>&#x25CF;<span>10 dk</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="swiper-slide">
+                                <a href="#">
+                                    <img src="https://fakeimg.pl/600x400" class="img-fluid">
+                                </a>
+                                <div class="swiper-most-body mt-2">
+                                    <div class="most-popular-author d-flex justify-content-between">
+                                        <div>yazar <a href="#">Emre Yaman</a></div>
+                                        <div class="text-end"><a href="">Css</a></div>
+                                    </div>
+                                    <div class="most-popular-title">
+                                        <h4 class="text-black">
+                                            <a href="#">Açıklama açıklama</a>
+                                        </h4>
                                     </div>
                                     <div class="most-popular-date">
                                         <span>19 ocak 2024</span>&#x25CF;<span>10 dk</span>
@@ -184,55 +260,145 @@
                                 <a href="#">
                                     <img src="https://fakeimg.pl/600x400" class="img-fluid">
                                 </a>
-                                <div class="swiper-most-popular mt-2">
-                                    <div class="most-popular-author">
-                                        Yapımcı yazar <a href="#">Emre Yaman yazilim</a>
+                                <div class="swiper-most-body mt-2">
+                                    <div class="most-popular-author d-flex justify-content-between">
+                                        <div>yazar <a href="#">Emre Yaman</a></div>
+                                        <div class="text-end"><a href="">Css</a></div>
                                     </div>
                                     <div class="most-popular-title">
-                                        <h4 class="text-black"><a href="#">Açıklama açıklama</a></h4>
+                                        <h4 class="text-black">
+                                            <a href="#">Açıklama açıklama</a>
+                                        </h4>
                                     </div>
                                     <div class="most-popular-date">
                                         <span>19 ocak 2024</span>&#x25CF;<span>10 dk</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="swiper-slide">
-                                <a href="#">
-                                    <img src="https://fakeimg.pl/600x400" class="img-fluid">
-                                </a>
-                                <div class="swiper-most-popular mt-2">
-                                    <div class="most-popular-author">
-                                        Yapımcı yazar <a href="#">Emre Yaman yazilim</a>
-                                    </div>
-                                    <div class="most-popular-title">
-                                        <h4 class="text-black"><a href="#">Açıklama açıklama</a></h4>
-                                    </div>
-                                    <div class="most-popular-date">
-                                        <span>19 ocak 2024</span>&#x25CF;<span>10 dk</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <a href="#">
-                                    <img src="https://fakeimg.pl/600x400" class="img-fluid">
-                                </a>
-                                <div class="swiper-most-popular mt-2">
-                                    <div class="most-popular-author">
-                                        Yapımcı yazar <a href="#">Emre Yaman yazilim</a>
-                                    </div>
-                                    <div class="most-popular-title">
-                                        <h4 class="text-black"><a href="#">Açıklama açıklama</a></h4>
-                                    </div>
-                                    <div class="most-popular-date">
-                                        <span>19 ocak 2024</span>&#x25CF;<span>10 dk</span>
-                                    </div>
-                                </div>
-                            </div>
+
+                            v
+
 
 
                         </div>
                     </div>
+                    </div>
+
                 </section>
+                <section class="telegram d-flex align-items-center p-5 mt-5 rounded-2 text-white">
+                    <div class="me-4">
+                        <span class="material-icons">
+                            send
+                        </span>
+                    </div>
+                    <div class="telegram-body">
+                        <div class="title">
+                            <h4 class="telegram">Telegram Gurubumuza Katılmayı Unutma !</h4>
+                            <p>EmreYamanYazilim Makale sitesi</p>
+                            <a href="" class="btn btn-primary">Telegrama Katıl</a>
+                        </div>
+                    </div>
+
+                </section>
+                <section class="articles row mt-5">
+                    <div class="popular-title col-md-12">
+                        <h2 class="font-montserrat fw-semibold">En çok okunan Makaleler</h2>
+                    </div>
+                    <div class="col-md-4 mt-3">
+                        <a href="">
+                            <img src="https://fakeimg.pl/600x400" class="img-fluid">
+                        </a>
+                        <div class="most-popular-author d-flex justify-content-between">
+                            <div>Yapımcı yazar <a href="#">Emre Yaman yazilim</a></div>
+                            <div>Kategori:<a href="">Css</a></div>
+                        </div>
+                        <div class="most-popular-title">
+                            <h4 class="text-black"><a href="#">Açıklama çıklama Açıklama  açıklama</a></h4>
+                        </div>
+                        <div class="most-popular-date">
+                            <span>19 ocak 2024</span>&#x25CF;<span>10 dk</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mt-3">
+                        <a href="">
+                            <img src="https://fakeimg.pl/600x400" class="img-fluid">
+                        </a>
+                        <div class="most-popular-author d-flex justify-content-between">
+                            <div>Yapımcı yazar <a href="#">Emre Yaman yazilim</a></div>
+                            <div>Kategori:<a href="">Css</a></div>
+                        </div>
+                        <div class="most-popular-title">
+                            <h4 class="text-black"><a href="#">Açıklama açıklama</a></h4>
+                        </div>
+                        <div class="most-popular-date">
+                            <span>19 ocak 2024</span>&#x25CF;<span>10 dk</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mt-3">
+                        <a href="">
+                            <img src="https://fakeimg.pl/600x400" class="img-fluid">
+                        </a>
+                        <div class="most-popular-author d-flex justify-content-between">
+                            <div>Yapımcı yazar <a href="#">Emre Yaman yazilim</a></div>
+                            <div>Kategori:<a href="">Css</a></div>
+                        </div>
+                        <div class="most-popular-title">
+                            <h4 class="text-black"><a href="#">Açıklama açıklama</a></h4>
+                        </div>
+                        <div class="most-popular-date">
+                            <span>19 ocak 2024</span>&#x25CF;<span>10 dk</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mt-3">
+                        <a href="">
+                            <img src="https://fakeimg.pl/600x400" class="img-fluid">
+                        </a>
+                        <div class="most-popular-author d-flex justify-content-between">
+                            <div>Yapımcı yazar <a href="#">Emre Yaman yazilim</a></div>
+                            <div>Kategori:<a href="">Css</a></div>
+                        </div>
+                        <div class="most-popular-title">
+                            <h4 class="text-black"><a href="#">Açıklama açıklama</a></h4>
+                        </div>
+                        <div class="most-popular-date">
+                            <span>19 ocak 2024</span>&#x25CF;<span>10 dk</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mt-3">
+                        <a href="">
+                            <img src="https://fakeimg.pl/600x400" class="img-fluid">
+                        </a>
+                        <div class="most-popular-author d-flex justify-content-between">
+                            <div>Yapımcı yazar <a href="#">Emre Yaman yazilim</a></div>
+                            <div>Kategori:<a href="">Css</a></div>
+                        </div>
+                        <div class="most-popular-title">
+                            <h4 class="text-black"><a href="#">Açıklama açıklama</a></h4>
+                        </div>
+                        <div class="most-popular-date">
+                            <span>19 ocak 2024</span>&#x25CF;<span>10 dk</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mt-3">
+                        <a href="">
+                            <img src="https://fakeimg.pl/600x400" class="img-fluid">
+                        </a>
+                        <div class="most-popular-author d-flex justify-content-between">
+                            <div>Yapımcı yazar <a href="#">Emre Yaman yazilim</a></div>
+                            <div>Kategori:<a href="">Css</a></div>
+                        </div>
+                        <div class="most-popular-title">
+                            <h4 class="text-black"><a href="#">Açıklama açıklama</a></h4>
+                        </div>
+                        <div class="most-popular-date">
+                            <span>19 ocak 2024</span>&#x25CF;<span>10 dk</span>
+                        </div>
+                    </div>
+
+
+                </section>
+
+
             </div>
             <div class="col-md-3">
                 <section class="categories bg-white shadow-sm">
@@ -254,14 +420,86 @@
 
 
                 </section>
+                <section class="youtube mt-4">
+                    <h4 class="font-montserrat fw-semibold">Öne çıkan videolar</h4>
+
+                    <div class="swiper-youtube mt-2">
+                        <!-- Additional required wrapper -->
+                        <div class="swiper-wrapper ">
+                            <!-- Slides -->
+                            <div class="swiper-slide">
+                                <iframe width="100%"  src="https://www.youtube.com/embed/YCHNZLmMEr8" title="Defalarca Dinletip Ağlatan İnşirah Suresi - Abdullah Altun" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                            </div>
+                            <div class="swiper-slide">
+                                <iframe width="100%" src="https://www.youtube.com/embed/P2tCbVyjSc0" title="&quot;Kadrolu provokatörler&quot; kimin adamı? ABD Karadeniz&#39;de üs mü kuracak? - Ne Oluyor? 21.01.2024 Pazar" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="most-popular-swiper-navigation text-end">
+                        <span class="btn btn-secondary btn-sm material-icons youtube-swiper-button-prev">arrow_back</span>
+                        <span class="btn btn-secondary btn-sm material-icons youtube-swiper-button-next">arrow_forward </span>
+                    </div>
+                </section>
+                <section class="authors mt-4">
+                        <h4 class="font-montserrat fw-semibold">Yazarlarımız</h4>
+
+                    <div class="swiper-authors mt-2">
+                        <!-- Additional required wrapper -->
+                        <div class="swiper-wrapper ">
+                            <!-- Slides -->
+                            <div class="swiper-slide">
+                                <a href="">
+                                <div style="
+                                background-image: url('https://fakeimg.pl/200x200?font=bebas');
+                                background-size: cover;
+                                background-repeat: no-repeat;
+                                background-position: center center;
+                                height: 200px;
+                                ">
+                                </div>
+                                    <div>
+                                        Emre Yaman
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="swiper-slide">
+                                <a href="">
+                                <div style="
+                                background-image: url('https://fakeimg.pl/200x200?font=bebas');
+                                background-size: cover;
+                                background-repeat: no-repeat;
+                                background-position: center center;
+                                height: 200px;
+                                ">
+                                </div>
+                                    <div>
+                                        Emre Yaman
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="most-popular-swiper-navigation text-end">
+                        <span class="btn btn-secondary btn-sm material-icons authors-swiper-button-prev">arrow_back</span>
+                        <span class="btn btn-secondary btn-sm material-icons authors-button-next">arrow_forward </span>
+                    </div>
+                </section>
             </div>
         </div>
     </main>
 </div>
+<footer class="container-fluid mt-5 p-5" style="border-top: 1px solid #eceff2;">
+    <div class="container text-center">
+        <p> &copy; 2024  Emre Yaman Yazilim</p>
+
+    </div>
+</footer>
+
 <!--<script src="../../../public/assets/front/js/bootstrap.bundle.min.js"></script>-->
 <script src="../../../public/assets/front/js/jquery.min.js"></script>
 <script src="../../../public/assets/front/swiper/swiper-bundle.min.js"></script>
 <script src="../../../public/assets/front/js/bootstrap.min.js"></script>
+<script src="../../../public/assets/front/aos/aos.js"></script>
 <script src="../../../public/assets/front/js/main.js"></script>
 
 </body>
