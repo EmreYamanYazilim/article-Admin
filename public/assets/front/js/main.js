@@ -1,5 +1,4 @@
 AOS.init();
-// hljs.highlightAll();
 
 // $('#searchIcon2').click(function () {
 //     $("#searchForm").hide();
@@ -78,5 +77,6 @@ $(".scroll-to-top").click(function (){
     });
 
 
+hljs.highlightAll();
 
 
